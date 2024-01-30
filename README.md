@@ -1,52 +1,53 @@
-# Project Name
+# Safe Lane Change by Using Finite State Machine and Control Barrier Functions
 
-A brief description of what this project does and who it's for.
+## Abstract
+For autonomous vehicles, performing lane change maneuvers in a safe and smooth manner is crucial. This project develops a high-level decision-maker for model predictive contouring control (MPCC). By integrating a finite state machine (FSM) with a safety judgment mechanism, our approach actively avoids obstacles and optimizes lane changing trajectory using B-splines. In the lower execution layer, MPCC is combined with the control barrier function (CBF) for safe local path planning and optimal control input determination under a wide range of road conditions. Simulation results demonstrate the effectiveness of our method.
 
-## Description
+## Features
+- **High-level Decision-making Using FSM for Active Obstacle Avoidance**: Implemented in [FSM.py](/MPCCCBFFSM/high_level_control/FSM.py).
+- **B-spline Based Trajectory Optimization for Smooth Lane Changing**: See [B_Spline_Curve.py](/MPCCCBFFSM/high_level_control/B_Spline_Curve.py) for details.
+- **Integration of MPCC and CBF for Safe Local Path Planning and Control**: Core functionality located in [mpcc_optimazation_fuction.py](/MPCCCBFFSM/MPCC_set/mpcc_optimazation_fuction.py).
+- **Effective Handling of Various Road Conditions**: Adaptations for different conditions are handled in [sim_parameters.py](/MPCCCBFFSM/env/sim_parameters.py).
+- **Proven Effectiveness Through Simulation Results**: Simulation scripts and results can be found in the thesis of the same name.
 
-A longer description of your project goes here. What is the purpose of the project? What problem does it solve? How can it benefit the users?
 
-## Getting Started
-
-### Dependencies
-
-List any dependencies that are required for this project.
-
-### Installing
-
-- How to install the project, step-by-step:
-
-### Executing program
-
-- How to run the program
-- Step-by-step bullets
-
+## Installation
+To set up the project, follow these steps:
+1. Clone the repository:
+git clone https://github.com/PandaunterSternen/FSM-MPCC.git
+2. Navigate to the `MPCCCBFFSM` directory:
+cd /your_path/MPCCCBFFSM
+3. Install the required packages:
+pip install -r requirements.txt
 
 ## Usage
+To run the program, execute the following script:
+/MPCC/MPCCCBFFSM/MPCC_CasADI_ms_avoid_withobs_noF_hL_c2.0_curveline_CBF++.py
 
-Explain how to use your project. Include examples, screenshots, or code snippets if applicable.
+### Dashboard
+A dashboard for real-time monitoring is provided (insert dashboard image link here).
+
+### Demo Video
+Watch the lane changing in action (insert video link here).
 
 ## Contributing
+We welcome contributions to improve this project. You can contribute in the following ways:
+- Modifying and improving the existing code.
+- Adding new features or enhancements.
+- Optimizing performance and efficiency.
 
-If you're interested in contributing to the project, thank you! Here's how you can do it:
-
-- Fork the project
-- Create a new branch (`git checkout -b feature-branch`)
-- Make your changes and commit (`git commit -am 'Add some feature'`)
-- Push to the branch (`git push origin feature-branch`)
-- Create a new Pull Request
-
-## Authors
-
-Contributors names and contact info
-
-- ex. John Doe - [johndoe](https://github.com/johndoe)
+To contribute, please follow these steps:
+1. Fork the repository.
+2. Create a new branch for your feature.
+3. Commit your changes.
+4. Push to your branch and open a pull request.
 
 ## License
+This project is licensed under the [MIT License](LICENSE link here) - see the LICENSE file for details.
 
-This project is licensed under the [LICENSE NAME] License - see the LICENSE.md file for details.
+## Contact
+For any queries or further information, please contact [your email/contact information].
 
-## Acknowledgments
 
-Inspiration, code snippets, etc.
-- [Project Name](link)
+
+
