@@ -1,7 +1,7 @@
 # Safe Lane Change by Using Finite State Machine and Control Barrier Functions
 
 ## Abstract
-For autonomous vehicles, performing lane change maneuvers safely and smoothly is crucial. This project focuses on developing a high-level decision-maker for model predictive contouring control (MPCC). We integrate a finite state machine (FSM) with a safety judgment mechanism for active obstacle avoidance and optimize lane-changing trajectories using B-splines. The lower execution layer combines MPCC with the control barrier function (CBF) for safe path planning and control under varied road conditions. Our method's effectiveness is validated through simulation results.
+This project develops a decision-making system for autonomous vehicle lane changes using model predictive contouring control (MPCC). We combine a finite state machine (FSM) for obstacle detection with B-spline optimized trajectories. The system also integrates MPCC with control barrier functions (CBF) for safe path planning. Our approach is validated through simulations, demonstrating effective lane change maneuvers under various conditions.
 
 ## Features
 - **High-level Decision-making Using FSM for Active Obstacle Avoidance**: [FSM.py](/MPCCCBFFSM/high_level_control/FSM.py)
@@ -9,9 +9,6 @@ For autonomous vehicles, performing lane change maneuvers safely and smoothly is
 - **Integration of MPCC and CBF for Safe Local Path Planning and Control**: [mpcc_optimization_function.py](/MPCCCBFFSM/MPCC_set/mpcc_optimazation_fuction.py)
 - **Effective Handling of Various Road Conditions**: [sim_parameters.py](/MPCCCBFFSM/env/sim_parameters.py)
 - **Proven Effectiveness Through Simulation**: Detailed in the accompanying thesis.
-
-
-
 
 ## Installation
 To set up the project, follow these steps:
