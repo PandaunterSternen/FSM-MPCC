@@ -29,7 +29,8 @@ A dashboard for real-time monitoring is provided :
 ![Example Image](/MPCCCBFFSM/images_and_video/Picture.png)
 
 ### Demo Video
-Watch the lane changing in action 
+Watch the lane changing in action :
+
 ![Alt Text](/MPCCCBFFSM/images_and_video/FSM_MPCC_speed_4X.gif)
 
 ## Contributing
@@ -44,11 +45,8 @@ To contribute, please follow these steps:
 3. Commit your changes.
 4. Push to your branch and open a pull request.
 
-## License
-This project is licensed under the [MIT License](LICENSE link here) - see the LICENSE file for details.
-
 ## Contact
-For any queries or further information, please contact [your email/contact information].
+For any queries or further information, please contact [xinwensu97@gmail.com].
 
 
 
