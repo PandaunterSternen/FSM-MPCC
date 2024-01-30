@@ -26,11 +26,11 @@ To run the program, execute the following script:
 
 ### Dashboard
 A dashboard for real-time monitoring is provided :
-![Example Image](/MPCCCBFFSM/images_and_video/Picture.png)).
+![Example Image](/MPCCCBFFSM/images_and_video/Picture.png)
 
 ### Demo Video
 Watch the lane changing in action 
-![Alt Text](/MPCCCBFFSM/images_and_video/FSM-MPCC(speed 4X).gif)
+![Alt Text](SM-MPCC(speed 4X).gif)
 
 ## Contributing
 We welcome contributions to improve this project. You can contribute in the following ways:
