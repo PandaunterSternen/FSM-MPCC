@@ -276,7 +276,7 @@ class dashboard:
         self.axes[0, 2].set_xticks(range(0, self.sim_step, 50))
         self.axes[0, 2].set_xticklabels([str(x) for x in range(0, self.sim_step, 50)])
         self.axes[0, 2].set_ylim(np.rad2deg(self.omega_min), np.rad2deg(self.omega_max))
-        self.axes[0, 2].set_xlim(-10, 270)
+        self.axes[0, 2].set_xlim(-10, self.sim_iter_sum+10)
         self.axes[0, 2].grid(linestyle = "--")
         self.axes[0, 2].spines['top'].set_visible(False)
         self.axes[0, 2].spines['right'].set_visible(False)

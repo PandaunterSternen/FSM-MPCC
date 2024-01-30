@@ -46,7 +46,7 @@ class Params:
         self.n_states = None
         self.n_controls = None
 
-        self.T = 0.06#0.04  # （模拟的）系统采样时间【秒】0.04 0.07
+        self.T = 0.04#0.04  # （模拟的）系统采样时间【秒】0.04 0.07
 
         self.N = 20  # 需要预测的步长【超参数】
         self.sim_step = 500  # 仿真时长
@@ -75,7 +75,7 @@ class Params:
         self.Observe_num_cars = 5
         self.mpc_sim_iter = 0
         self.index_target = 50
-        self.s_target = 15#12
+        self.s_target = 11#12
         self.ego_target_id = 0
 
         self.state_other_car = None
@@ -84,7 +84,9 @@ class Params:
         self.command_range = 8
         self.crash_warning_car_no = None
         self.crash_warning_car_s = 60
+        self.sim_iter_rest = 380
         # draw
+
         self.axes = None
         self.fig = None
         self.x_history = []
@@ -92,6 +94,7 @@ class Params:
         self.phi_history = []
         self.v_history = []
         self.a_history = []
+        self.sim_iter_sum = self.sim_iter_rest
 
         self.omega_history = []
         self.n_interp = 1000
@@ -121,7 +124,7 @@ class Params:
         # quxian
         self.n_interp = 800
         # cbf
-        self.cbf_gamma = 1.0
+        self.cbf_gamma = 0.95 # 0.95
         self.fsmpra = 0.1
 
         self.solver_succes = True

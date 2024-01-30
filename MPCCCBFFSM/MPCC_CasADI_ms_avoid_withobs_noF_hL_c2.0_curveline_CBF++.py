@@ -164,9 +164,9 @@ class MPC:
         ocs_ori = np.array(obs_phi).reshape(-1, 1)
         self.fig, self.axes = plt.subplots(nrows=2, ncols=4, figsize=(16, 12))
         last_road_ID = 0
-        sim_iter = 250
+        self.sim_iter_rest = 380
 
-        while sim_iter > 0:
+        while self.sim_iter_rest > 0:
             #  ## 初始化优化参数
 
 
@@ -377,7 +377,7 @@ class MPC:
 
             # self.ego_states_current = np.array(x_predict_current_state[1, :]).reshape(-1,1)
 
-            sim_iter = sim_iter - 1
+            self.sim_iter_rest = self.sim_iter_rest - 1
             self.mpc_sim_iter = self.mpc_sim_iter + 1
         plt.show()
 
