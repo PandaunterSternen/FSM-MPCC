@@ -25,7 +25,7 @@ To run the program, execute the following script:
 /MPCC/MPCCCBFFSM/MPCC_CasADI_ms_avoid_withobs_noF_hL_c2.0_curveline_CBF++.py
 
 ### Dashboard
-A dashboard for real-time monitoring is provided (insert dashboard image link here).
+A dashboard for real-time monitoring is provided (![Example Image](/MPCCCBFFSM/images_and_video/Picture.png)).
 
 ### Demo Video
 Watch the lane changing in action (insert video link here).
