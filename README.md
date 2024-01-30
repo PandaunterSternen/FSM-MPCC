@@ -30,7 +30,7 @@ A dashboard for real-time monitoring is provided :
 
 ### Demo Video
 Watch the lane changing in action 
-![Alt Text](SM-MPCC(speed 4X).gif)
+![Alt Text](/MPCCCBFFSM/images_and_video/FSM_MPCC_speed_4X.gif)
 
 ## Contributing
 We welcome contributions to improve this project. You can contribute in the following ways:
