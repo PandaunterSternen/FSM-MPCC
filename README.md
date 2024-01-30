@@ -1,23 +1,25 @@
 # Safe Lane Change by Using Finite State Machine and Control Barrier Functions
 
 ## Abstract
-For autonomous vehicles, performing lane change maneuvers in a safe and smooth manner is crucial. This project develops a high-level decision-maker for model predictive contouring control (MPCC). By integrating a finite state machine (FSM) with a safety judgment mechanism, our approach actively avoids obstacles and optimizes lane changing trajectory using B-splines. In the lower execution layer, MPCC is combined with the control barrier function (CBF) for safe local path planning and optimal control input determination under a wide range of road conditions. Simulation results demonstrate the effectiveness of our method.
+For autonomous vehicles, performing lane change maneuvers safely and smoothly is crucial. This project focuses on developing a high-level decision-maker for model predictive contouring control (MPCC). We integrate a finite state machine (FSM) with a safety judgment mechanism for active obstacle avoidance and optimize lane-changing trajectories using B-splines. The lower execution layer combines MPCC with the control barrier function (CBF) for safe path planning and control under varied road conditions. Our method's effectiveness is validated through simulation results.
 
 ## Features
-- **High-level Decision-making Using FSM for Active Obstacle Avoidance**: Implemented in [FSM.py](/MPCCCBFFSM/high_level_control/FSM.py).
-- **B-spline Based Trajectory Optimization for Smooth Lane Changing**: See [B_Spline_Curve.py](/MPCCCBFFSM/high_level_control/B_Spline_Curve.py) for details.
-- **Integration of MPCC and CBF for Safe Local Path Planning and Control**: Core functionality located in [mpcc_optimazation_fuction.py](/MPCCCBFFSM/MPCC_set/mpcc_optimazation_fuction.py).
-- **Effective Handling of Various Road Conditions**: Adaptations for different conditions are handled in [sim_parameters.py](/MPCCCBFFSM/env/sim_parameters.py).
-- **Proven Effectiveness Through Simulation Results**: Simulation scripts and results can be found in the thesis of the same name.
+- **High-level Decision-making Using FSM for Active Obstacle Avoidance**: [FSM.py](/MPCCCBFFSM/high_level_control/FSM.py)
+- **B-spline Based Trajectory Optimization for Smooth Lane Changing**: [B_Spline_Curve.py](/MPCCCBFFSM/high_level_control/B_Spline_Curve.py)
+- **Integration of MPCC and CBF for Safe Local Path Planning and Control**: [mpcc_optimization_function.py](/MPCCCBFFSM/MPCC_set/mpcc_optimazation_fuction.py)
+- **Effective Handling of Various Road Conditions**: [sim_parameters.py](/MPCCCBFFSM/env/sim_parameters.py)
+- **Proven Effectiveness Through Simulation**: Detailed in the accompanying thesis.
+
+
 
 
 ## Installation
 To set up the project, follow these steps:
-1. Clone the repository:
+1. **Clone the repository**:
 git clone https://github.com/PandaunterSternen/FSM-MPCC.git
-2. Navigate to the `MPCCCBFFSM` directory:
+2. **Navigate to the directory**:
 cd /your_path/MPCCCBFFSM
-3. Install the required packages:
+3. **Install required packages**:
 pip install -r requirements.txt
 
 ## Usage
@@ -25,16 +27,23 @@ To run the program, execute the following script:
 /MPCC/MPCCCBFFSM/MPCC_CasADI_ms_avoid_withobs_noF_hL_c2.0_curveline_CBF++.py
 
 ### Dashboard
-A dashboard for real-time monitoring is provided :
-![Example Image](/MPCCCBFFSM/images_and_video/Picture.png)
+![Dashboard Image](/MPCCCBFFSM/images_and_video/Picture.png)
 
 ### Demo Video
-Watch the lane changing in action :
+![Simulation GIF](/MPCCCBFFSM/images_and_video/FSM_MPCC_speed_4X.gif)
 
-![Alt Text](/MPCCCBFFSM/images_and_video/FSM_MPCC_speed_4X.gif)
+## Tools Used
+This project utilizes CasADi, an open-source tool for nonlinear optimization and algorithmic differentiation. CasADi is used for [solver]. More information about CasADi can be found on their [official website](https://web.casadi.org/) or [GitHub repository](https://github.com/casadi/casadi). CasADi is licensed under the LGPL.
+
+## Acknowledgments
+This project has benefited from several external resources and examples, particularly for the usage of the CasADi framework. We would like to thank:
+- [CasADi_MPC_MHE_Python](https://github.com/tomcattiger1230/CasADi_MPC_MHE_Python.git) for CasADi application examples.
+- [MPCC](https://github.com/alexliniger/MPCC.git) [Nonlinear_MPCC_for_autonomous_racing](https://github.com/nirajbasnet/Nonlinear_MPCC_for_autonomous_racing.git) for the mpcc framework.
+
+We appreciate the contributions of the wider open-source community in supporting this project.
 
 ## Contributing
-We welcome contributions to improve this project. You can contribute in the following ways:
+The framework is still relatively simple. We welcome contributions to improve this project. You can contribute in the following ways:
 - Modifying and improving the existing code.
 - Adding new features or enhancements.
 - Optimizing performance and efficiency.
@@ -46,7 +55,7 @@ To contribute, please follow these steps:
 4. Push to your branch and open a pull request.
 
 ## Contact
-For any queries or further information, please contact [xinwensu97@gmail.com].
+If you have any questions or need more information, please contact [xinwensu97@gmail.com].
 
 
 
