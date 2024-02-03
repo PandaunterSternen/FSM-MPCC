@@ -21,11 +21,12 @@ class dashboard:
 
         self.axes[0, 0].set_position([0.1, 0.25, 0.37, 0.6])  # 调整位置和大小
         self.axes[0, 1].set_position([0.545, 0.25, 0.425, 0.2])
+        self.axes[0, 2].set_position([0.545, 0.55, 0.425, 0.2])
         # [left, bottom, width, height]
         self.axes[1, 0].set_position([0.075, 0.05, 0.175, 0.14])
         self.axes[1, 1].set_position([0.290, 0.05, 0.175, 0.14])
         self.axes[1, 2].set_position([0.575, 0.05, 0.175, 0.14])
-        self.axes[0, 2].set_position([0.545, 0.55, 0.425, 0.2])
+
 
         # plot for main
 
@@ -79,6 +80,7 @@ class dashboard:
 
         position = ego_states_current[:2]
         orientation = ego_states_current[2]
+
         # draw ego car
 
         distance_ego = [Diagonale_line * np.cos(orientation + Diagonale_angle),
@@ -207,6 +209,7 @@ class dashboard:
         self.a_history.append(self.controls_predict_current_state[0][0])
         self.omega_history.append(self.controls_predict_current_state[0][1])
         iter_history = list(range(0, self.mpc_sim_iter + 1))
+
         # v
         self.axes[1, 0].plot(iter_history, self.a_history)
         self.axes[1, 0].set_xticks(range(0, self.sim_step, 50))
@@ -225,6 +228,7 @@ class dashboard:
         self.y_history.append(ego_states_current[1])
         self.phi_history.append(ego_states_current[2])
         self.v_history.append(ego_states_current[3])
+
         # x y
         # v
         # self.axes[1, 2].plot(self.x_history, self.y_history)
@@ -271,6 +275,7 @@ class dashboard:
 
         self.axes[0, 2].plot(iter_history, np.rad2deg(self.phi_history))
         # Scatter plot for peaks
+        # self.axes[0, 2].plot(iter_history, np.rad2deg(self.omega_history), color = 'red')
 
 
         self.axes[0, 2].set_xticks(range(0, self.sim_step, 50))
@@ -294,9 +299,9 @@ class dashboard:
         self.axes[1, 2].set_xlabel('Prediction Time Step (k)')
         self.axes[1, 2].set_ylabel('Velocity (m/s)')
 
-        self.axes[0, 2].set_title('Steering Angle (°)')
+        self.axes[0, 2].set_title('Yaw Angle (°)')
         self.axes[0, 2].set_xlabel('Prediction Time Step (k)')
-        self.axes[0, 2].set_ylabel('Steering Angle (°)')
+        self.axes[0, 2].set_ylabel('Yaw Angle (°)')
 
         self.axes[0, 0].set_xlim(position[0] - 8, position[0] + 16)
         self.axes[0, 0].set_ylim(position[1] - 7, position[1] + 14)

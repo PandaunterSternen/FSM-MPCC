@@ -49,7 +49,7 @@ class Params:
         self.T = 0.04#0.04  # （模拟的）系统采样时间【秒】0.04 0.07
 
         self.N = 20  # 需要预测的步长【超参数】
-        self.sim_step = 500  # 仿真时长
+        self.sim_step = 380#仿真时长
 
         #  ##状态约束
         self.lbg = [0.0, 0.0, 0.0, 0.0, 0.0]  # 一开始状态初始状态等于X0
@@ -75,8 +75,8 @@ class Params:
         self.Observe_num_cars = 5
         self.mpc_sim_iter = 0
         self.index_target = 50
-        self.s_target = 11#12
-        self.ego_target_id = 0
+        self.s_target = 11#11
+        self.ego_target_id = 1
 
         self.state_other_car = None
         self.ego_command = 0  # turn left 1 ， keep 0，turn right -1
@@ -84,7 +84,7 @@ class Params:
         self.command_range = 8
         self.crash_warning_car_no = None
         self.crash_warning_car_s = 60
-        self.sim_iter_rest = 380
+        self.sim_iter_rest = self.sim_step #380
         # draw
 
         self.axes = None
@@ -97,7 +97,7 @@ class Params:
         self.sim_iter_sum = self.sim_iter_rest
 
         self.omega_history = []
-        self.n_interp = 1000
+
         self.tracking_line_x = None
         self.tracking_line_y = None
         self.tracking_line_dx = None

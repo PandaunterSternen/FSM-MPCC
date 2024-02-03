@@ -9,7 +9,7 @@ def tracking_line_setting(self):
     # X_target = self.states_target
     #
     # s_target = X_target[3]
-
+    # centerline
     s_current = self.ego_states_current[4]
     s_delta = self.s_target / self.N
 
@@ -26,9 +26,9 @@ def tracking_line_setting(self):
         dx, dy = s_to_dxdy(self, line, s_project[i])
         tracking_line_dx.append(dx)
         tracking_line_dy.append(dy)
-    distence =np.sqrt( (self.ego_states_current[0]+0.5-tracking_line_x[0])**2 + (self.ego_states_current[1]-tracking_line_y[0])**2)
+    distance =np.sqrt((self.ego_states_current[0]+0.5-tracking_line_x[0])**2 + (self.ego_states_current[1]-tracking_line_y[0])**2)
 
-    if distence > 0.2:#0.2: #self.crash_warning:#d
+    if distance > 0.2: #self.crash_warning:#d0.2:#
 
         differences = [abs(s_pro - self.crash_warning_car_s) for s_pro in s_project]
 

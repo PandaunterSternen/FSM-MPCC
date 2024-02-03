@@ -1,8 +1,9 @@
 
 
-def FSM_CBF_SEFTY(self, ego_s, min_ahead_s, FSM_state, ego_left_ahead_right_car_v, ):
+def FSM_CBF_SEFTY(self, ego_s, min_ahead_s, FSM_state, ego_left_ahead_right_car_v, current_ahead_s):
     ego_v = self.ego_states_current[3]
-    min_ahead_v = ego_left_ahead_right_car_v[-FSM_state + 1]
+    min_ahead_v = ego_left_ahead_right_car_v[-FSM_state + 1]  # target line
+    min_current_ahead_v = ego_left_ahead_right_car_v[self.ego_id]  # current line
     if min_ahead_v <= ego_v:
         h = (min_ahead_s - ego_s - self.L - (1 + self.fsmpra) * ego_v - 0.5 * (
                 min_ahead_v - ego_v) ** 2 / self.a_max)
@@ -16,6 +17,13 @@ def FSM_CBF_SEFTY(self, ego_s, min_ahead_s, FSM_state, ego_left_ahead_right_car_
 
     else:
         self.ego_command = 0
+        if min_current_ahead_v <= ego_v:
+            h = (current_ahead_s - ego_s - self.L - (1 + self.fsmpra) * ego_v - 0.5 * (
+                    min_current_ahead_v - ego_v) ** 2 / self.a_max)
+            h_dot = min_current_ahead_v - (0.5 / self.a_max) * 2 * (min_current_ahead_v - ego_v) * 2
+        else:
+            h = (current_ahead_s - ego_s - self.L - (1 + self.fsmpra) * ego_v)
+            h_dot = min_current_ahead_v
 
     if h_dot <= 0.1 * h:
         self.a_ref = -self.a_demax
@@ -32,6 +40,7 @@ def FSM(self, ego_left_car_s, ego_right_car_s, ego_ahead_car_s, ego_s, ego_left_
     # return self.ego_command
     FSM_state = 0
     min_ahead_s = min(ego_ahead_car_s)
+    current_ahead_s = min_ahead_s
 
     if min(ego_left_car_s) > min(ego_right_car_s) > ego_s and min(
             ego_left_car_s) > ego_s and self.ego_id != self.n_road-1:  # turn left
@@ -63,6 +72,6 @@ def FSM(self, ego_left_car_s, ego_right_car_s, ego_ahead_car_s, ego_s, ego_left_
     else:
         FSM_state = 0
 
-    FSM_CBF_SEFTY(self, ego_s, min_ahead_s, FSM_state, ego_left_ahead_right_car_v)
+    FSM_CBF_SEFTY(self, ego_s, min_ahead_s, FSM_state, ego_left_ahead_right_car_v, current_ahead_s)
     # self.ego_command = FSM_state
     # self.ego_target_id = self.ego_id + self.ego_command

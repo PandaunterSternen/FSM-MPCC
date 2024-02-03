@@ -2,6 +2,7 @@ import casadi as ca
 
 import numpy as np
 import time
+import os
 
 from MPCCCBFFSM.env.OtherVehicle_curve_fest import OtherVehicleCurve_fest
 from matplotlib import pyplot as plt
@@ -11,10 +12,13 @@ from MPCCCBFFSM.env.road_config import Road
 from MPCCCBFFSM.env.sim_parameters import Params
 from MPCCCBFFSM.env.road_search import *
 from MPCCCBFFSM.Plotting.plot_dashbroad import dashboard
+from MPCCCBFFSM.Plotting.result_ploting import plot_results
+from MPCCCBFFSM.Plotting.result_ploting import plot_results1
 from MPCCCBFFSM.MPCC_set.mpcc_model import mpcmodel
 from MPCCCBFFSM.MPCC_set.mpcc_optimazation_fuction import mpc_optimazation_init
 from MPCCCBFFSM.high_level_control.FSM import FSM
 from MPCCCBFFSM.high_level_control.tracking_line import tracking_line_setting
+
 
 
 
@@ -106,13 +110,13 @@ class MPC:
         self.set_road_env()
 
 
-        init_id = 0
-        init_index = 5
+        init_id = 0 #
+        init_index = 5 #
         self.ego_states_current = np.array([self.center_x[init_id][init_index], self.center_y[init_id][init_index],
                                             np.arctan(self.center_dy[init_id][init_index], self.center_dx[init_id][init_index]),
                                             [self.v_ave], self.center_s[init_id][init_index]]).reshape(-1, 1)
         STATE_INIT = self.ego_states_current.copy()
-        self.ego_id = 0
+        self.ego_id = init_id
 
         self.index_in_curve = state_to_index(self, self.ego_states_current)
         target_index = int(self.index_in_curve + self.index_target)
@@ -154,17 +158,17 @@ class MPC:
 
         self.state_other_car = self.OtherVehicle.get_all_states()
 
-        obs_xy = []  # car0 x0 y0 x1 y1
-        obs_phi = []
-        for car_id in range(self.num_cars):
-            obs_xy.append(self.state_other_car[car_id]['States_X'])
-            obs_xy.append(self.state_other_car[car_id]['States_Y'])
-            obs_phi.append(self.state_other_car[car_id]['States_psi'])
-        obs_xy = np.array(obs_xy).reshape(-1, 1)
-        ocs_ori = np.array(obs_phi).reshape(-1, 1)
+        # obs_xy = []  # car0 x0 y0 x1 y1
+        # obs_phi = []
+        # for car_id in range(self.num_cars):
+        #     obs_xy.append(self.state_other_car[car_id]['States_X'])
+        #     obs_xy.append(self.state_other_car[car_id]['States_Y'])
+        #     obs_phi.append(self.state_other_car[car_id]['States_psi'])
+        # obs_xy = np.array(obs_xy).reshape(-1, 1)
+        # ocs_phi = np.array(obs_phi).reshape(-1, 1)
         self.fig, self.axes = plt.subplots(nrows=2, ncols=4, figsize=(16, 12))
         last_road_ID = 0
-        self.sim_iter_rest = 380
+
 
         while self.sim_iter_rest > 0:
             #  ## 初始化优化参数
@@ -178,7 +182,7 @@ class MPC:
              # 计算一下ego车在哪条道路上
             # 对是否撞车和是否左转，右转进行一次更新
             self.crash_warning = 0  # Is there any obstacle ahead of the vehicle
-            self.ego_command = 0
+            self.ego_command = 0 # 0 -1 1
             # 参数化 X*N+1
             # Y*N 2*N+1 obs_x_predict = obs_x[mpciter:mpciter+N]
 
@@ -194,10 +198,10 @@ class MPC:
             #
             # 从最近的五辆车中，找在行驶方向前的，不在前边的，设到不干扰地点
             # 并当前边有车的时候发出warning
-            min_as = 1000
+            min_as = 1000 # ahead s
             min_rs = 1000
             min_ls = 1000
-            lv = 1000
+            lv = 1000 # left velocity
             av = 1000
             rv = 1000
             d_1 = 0
@@ -226,10 +230,11 @@ class MPC:
 
                     elif variations_states[car_id]['road_ID'] == self.ego_id + 1 and \
                             obs_i_s - self.ego_states_current[4] >= -1:
+                        ego_left_car_s.append(variations_states[car_id]['States_s'][0])
                         if variations_states[car_id]['States_s'][0] < min_ls:
                             lv = variations_states[car_id]['States_v'][0]
                             min_ls = variations_states[car_id]['States_s'][0]
-                        ego_left_car_s.append(variations_states[car_id]['States_s'][0])
+
                     elif variations_states[car_id]['road_ID'] == self.ego_id - 1 and \
                             obs_i_s - self.ego_states_current[4] >= -1:
                         ego_right_car_s.append(variations_states[car_id]['States_s'][0])
@@ -250,6 +255,7 @@ class MPC:
             ego_left_ahead_right_car_v = [lv, av, rv]
             # 要是不转向就是原方向
             ego_s = self.ego_states_current[4]  # 1.429
+
             if self.crash_warning:
 
 
@@ -299,7 +305,7 @@ class MPC:
             self.tracking_line_current[:, 2] = self.tracking_line_k.squeeze()
             self.tracking_line_current[:, 3] = (self.v_ave * np.ones([self.N, 1])).squeeze()
             # todo
-            if self.crash_warning:#self.solver_succes == False:#
+            if self.crash_warning:#self.solver_succes == False:
                 init_control = np.concatenate((self.controls_predict_current_state.reshape(-1, 1),
                                                self.ego_states_current, self.tracking_line_current.reshape(-1,1)))
                 #    (self.controls_predict_current_state.reshape(-1, 1), next_states.reshape(-1, 1)))
@@ -379,7 +385,26 @@ class MPC:
 
             self.sim_iter_rest = self.sim_iter_rest - 1
             self.mpc_sim_iter = self.mpc_sim_iter + 1
+        # 输出文件
+        # program_directory = '/home/xinwensu/桌面/mpc_cbf/MPCC/MPCCCBFFSM'
+        # os.makedirs(program_directory, exist_ok=True)
+        # # 使用os.path.join来构建文件路径，确保路径在不同操作系统上都能正确工作
+        # yawangle_file_path = os.path.join(program_directory, 'yawanglew3.txt')
+        # steeringangle_file_path = os.path.join(program_directory, 'steeringanglew3.txt')
+        # phi_history_strings = [f"{item}\n" for item in self.phi_history]
+        # omega_history_strings = [f"{item}\n" for item in self.omega_history]
+        #
+        #
+        # with open(yawangle_file_path, 'w') as file:
+        #     file.writelines(phi_history_strings)
+        #
+        # with open(steeringangle_file_path, 'w') as file:
+        #     file.writelines(omega_history_strings)
+
         plt.show()
+
+
+        plot_results(self)
 
         # t_v = np.array(index_t)
         # print(t_v.mean())
