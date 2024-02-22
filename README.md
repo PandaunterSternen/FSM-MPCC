@@ -52,7 +52,7 @@ To contribute, please follow these steps:
 4. Push to your branch and open a pull request.
 
 ## Contact
-If you have any questions or need more information, please contact [xinwensu97@gmail.com].
+If you have any questions or need more information, please contact.
 
 
 
